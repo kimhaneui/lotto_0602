@@ -74,9 +74,27 @@ public class MainActivity extends BaseActivity {
 
         Arrays.sort(winLottoNumber);
 
+        while (true){
+            int randomNum = (int)(Math.random()*45+1);
+
+            boolean isDuplicatedOk = true;
+
+            for(int num:winLottoNumber){
+                if(num==randomNum){
+                    isDuplicatedOk = false;
+                    break;
+                }
+            }
+            if (isDuplicatedOk){
+                bonusNum = randomNum;
+                break;
+            }
+        }
+
         for (int i=0;i<winNumtxt.size();i++){
             int winNum = winLottoNumber[i];
             winNumtxt.get(i).setText(winNum+"");
         }
+        binding.bonusNum.setText(bonusNum+"");
     }
 }
