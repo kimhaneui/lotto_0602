@@ -24,6 +24,13 @@ public class MainActivity extends BaseActivity {
     long useMoney = 0L;
     long winMoney = 0L;
 
+    int firstRankCount = 0;
+    int secondRankCount = 0;
+    int thirdRankCount = 0;
+    int fourthRankCount = 0;
+    int fifthRankCount = 0;
+    int unrankedRankCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +87,7 @@ public class MainActivity extends BaseActivity {
         }
         if (correctCount == 6) {
             winMoney += 1300000000;
+            firstRankCount++;
         } else if (correctCount == 5) {
             boolean isBonusNumCorrect = false;
             for (TextView myNumTxt : myNumtxts) {
@@ -92,19 +100,30 @@ public class MainActivity extends BaseActivity {
 
             if (isBonusNumCorrect) {
                 winMoney += 54000000;
+                secondRankCount++;
             } else {
                 winMoney += 1450000;
+                thirdRankCount++;
             }
 
         } else if (correctCount == 4) {
             winMoney += 50000;
+            fourthRankCount++;
         } else if (correctCount == 3) {
             winMoney += 5000;
+            fifthRankCount++;
         } else {
-
+            unrankedRankCount++;
         }
         binding.winMoneyTxt.setText(String.format("%,d원", winMoney));
         binding.useMoneyTxt.setText(String.format("%,d원", useMoney));
+
+        binding.firstRank.setText(String.format("%,d회",firstRankCount));
+        binding.secondRank.setText(String.format("%,d회",secondRankCount));
+        binding.thirdRank.setText(String.format("%,d회",thirdRankCount));
+        binding.fourthRank.setText(String.format("%,d회",fourthRankCount));
+        binding.fifthRank.setText(String.format("%,d회",fifthRankCount));
+        binding.unranked.setText(String.format("%,d회",unrankedRankCount));
     }
 
 
