@@ -111,32 +111,45 @@ public class MainActivity extends BaseActivity {
     void checkWinRank() {
         useMoney += 1000;
 
+//       증가된 사용금액을 화면에 반영
         binding.useMoneyTxt.setText(String.format("%,d원", useMoney));
 
+//        모든 갯수 저장변수
         int correctCount = 0;
 
+//        내입력번호가 적힌  텍스트뷰들을 꺼내봄
         for (TextView myNumtxt : myNumtxts) {
+
+//            적혀있는 숫자를 인트로 변경
             int myNum = Integer.parseInt(myNumtxt.getText().toString());
 
+//            내숫자를 들고 당첨번호를 돌면서 증가
             for (int winNum : winLottoNumber) {
                 if (myNum == winNum) {
                     correctCount++;
                 }
             }
         }
+//        맞춘 갯수에 따른 등수
         if (correctCount == 6) {
             winMoney += 1300000000;
             firstRankCount++;
         } else if (correctCount == 5) {
+
+//            5개를 맞췄을땐 보너스 번호도 확인
             boolean isBonusNumCorrect = false;
+
+//            내입력번호 텍스트뷰목록을 돌면서 확인
             for (TextView myNumTxt : myNumtxts) {
                 int myNum = Integer.parseInt(myNumTxt.getText().toString());
+
+//                보너스번호와 비교해서 처리
                 if (myNum == bonusNum) {
                     isBonusNumCorrect = true;
                     break;
                 }
             }
-
+//          보너스 맟추면  처리
             if (isBonusNumCorrect) {
                 winMoney += 54000000;
                 secondRankCount++;
