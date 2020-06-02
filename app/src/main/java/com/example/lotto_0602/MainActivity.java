@@ -37,16 +37,24 @@ public class MainActivity extends BaseActivity {
 
     boolean isAutoBuyRunning;
     Handler mHandler =  new Handler();
+
+//    구매로직코드도 여러곳에서 사용하려고 멤버변수 사용
     Runnable buyLottoRunnable = new Runnable() {
 
         @Override
         public void run() {
+//            사용한 금액이 1천만원 이하라면
             if (useMoney<1000000){
+
+//                로또 번호생성/등수 맞추기 진행
                 makeLottoWinNumbers();
                 checkWinRank();
+
+//                이행동을 다시 할일로 등록해달라 => 반복으로 동작하게 되는 이유
                 mHandler.post(buyLottoRunnable);
             }
             else{
+//                돈을 다썻으면 구매종료 안내
                 Toast.makeText(mContext,"로또 구매를 종료합니다.",Toast.LENGTH_SHORT).show();
             }
 
@@ -62,25 +70,30 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
-
+//      자동구매를 누르면
         binding.buyautoLottoBtn.setOnClickListener(new View.OnClickListener() {
 
+//            지금 구매를 안돌리고 있다면
             @Override
             public void onClick(View v) {
-
+//                  구매시작 코드를 할일로 등록 시키자
                 if (!isAutoBuyRunning){
                     mHandler.post(buyLottoRunnable);
                     isAutoBuyRunning = true;
+//                    버튼 문구도 중단하기로 변경
                     binding.buyautoLottoBtn.setText(getResources().getString(R.string.paused));
                 }
+//                지금 구매가 돌아가고 있다면
                 else{
                     mHandler.removeCallbacks(buyLottoRunnable);
+//                    지금 구매중이 아니라고 명시
                     isAutoBuyRunning = false;
+//                    버튼 문구 변경
                     binding.buyautoLottoBtn.setText(getResources().getString(R.string.resume));
                 }
             }
         });
-
+//      한장을 구매할땐 => 로또 번호 만들고  / 등수 확인
         binding.buyoneLottoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
