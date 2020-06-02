@@ -12,5 +12,7 @@
     <string name="fourth_rank">4등 :</string>
     <string name="fifth_rank">5등 :</string>
     <string name="unranked">꽝 : </string>
+    <string name="paused">자동구매 중단하기</string>
+    <string name="resume">자동구매 재개하기</string>
 
 </resources>

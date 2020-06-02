@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity {
 
     List<TextView> myNumTxts = new ArrayList<>();
 
+    boolean isAutoBuyRunning;
     Handler mHandler =  new Handler();
     Runnable buyLottoRunnable = new Runnable() {
 
@@ -67,7 +68,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                mHandler.post(buyLottoRunnable);
+                if (!isAutoBuyRunning){
+                    mHandler.post(buyLottoRunnable);
+                    isAutoBuyRunning = true;
+                    binding.buyautoLottoBtn.setText(getResources().getString(R.string.paused));
+                }
+                else{
+                    mHandler.removeCallbacks(buyLottoRunnable);
+                    isAutoBuyRunning = false;
+                    binding.buyautoLottoBtn.setText(getResources().getString(R.string.resume));
+                }
             }
         });
 
